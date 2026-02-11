@@ -298,3 +298,199 @@ class SensitivityAnalyzer:
             # Fill active slots
             final_tensor[valid_indices] = computed_tensor.float()
             return final_tensor
+
+    def compute_sensitivity_wide(self, x, delta_star, n_w, input_batch_size, target_output_indices):
+        """
+        Input-Batched Sensitivity Engine with Grouping Support.
+        Processes multiple inputs simultaneously per forward pass.
+        Shares a single permuted order of units (features or groups) across all
+        inputs in a batch.
+
+        Handles the same 3 delta_star cases and zero-delta filtering as
+        compute_sensitivity.
+
+        WARNING: Iterates over units (features/groups) one at a time.
+                 Only efficient for low-D data or grouped features.
+        """
+        x = x.to(dtype=torch.float32, device=self.device)
+        N, D = x.shape
+
+        if isinstance(target_output_indices, (np.ndarray, torch.Tensor)):
+            target_output_indices = target_output_indices.tolist()
+        M = len(target_output_indices)
+
+        if not torch.is_tensor(delta_star):
+            delta_star = torch.tensor(delta_star, device=self.device, dtype=torch.float32)
+        else:
+            delta_star = delta_star.to(dtype=torch.float32, device=self.device)
+
+        # -------------------------------------------------------
+        # CASE DETECTION & EXPANSION
+        # -------------------------------------------------------
+        # --- CASE 1: Scalar ---
+        if delta_star.ndim == 0:
+            x_input = x
+            delta_input = delta_star.view(1).repeat(N)
+            target_map = [target_output_indices] * N
+            expanded_mode = False
+
+        # --- CASE 2: Vector (N,) ---
+        elif delta_star.ndim == 1 and delta_star.numel() == N:
+            x_input = x
+            delta_input = delta_star
+            target_map = [target_output_indices] * N
+            expanded_mode = False
+
+        # --- CASE 3: Matrix (N, M) ---
+        elif delta_star.ndim == 2 and delta_star.shape == (N, M):
+            x_input = x.repeat_interleave(M, dim=0)  # (N*M, D)
+            delta_input = delta_star.view(-1)          # (N*M,)
+            raw_targets = target_output_indices * N
+            target_map = [[t] for t in raw_targets]
+            expanded_mode = True
+
+        else:
+            raise ValueError(f"Invalid delta_star shape {delta_star.shape}")
+
+        # -------------------------------------------------------
+        # FILTERING INVALID DELTAS (delta <= 0)
+        # -------------------------------------------------------
+        valid_mask = (delta_input > 0)
+        num_total_tasks = len(delta_input)
+
+        if not valid_mask.any():
+            print("  [Engine Warning] No stable deltas found for any input! Returning zeros.")
+            if expanded_mode:
+                return torch.zeros((N, M, D), device=self.device)
+            else:
+                return torch.zeros((N, M, D), device=self.device)
+
+        # Report Ignored Tuples
+        ignored_indices = torch.nonzero(~valid_mask).squeeze(1).cpu().numpy()
+        if len(ignored_indices) > 0:
+            print(f"  [Engine Report] Ignoring {len(ignored_indices)} cases where delta_star == 0:")
+            for idx in ignored_indices:
+                if expanded_mode:
+                    s_idx = idx // M
+                    o_rel = idx % M
+                    o_real = target_output_indices[o_rel]
+                    print(f"    - Sample {s_idx}, Output Index {o_real} (Relative {o_rel})")
+                else:
+                    print(f"    - Sample {idx} (All Targets)")
+
+        # Subset Data for Computation
+        valid_indices = torch.nonzero(valid_mask).squeeze(1)
+
+        x_active = x_input[valid_indices]
+        d_active = delta_input[valid_indices]
+        t_active = [target_map[i.item()] for i in valid_indices]
+
+        # -------------------------------------------------------
+        # CORE EXECUTION (Input-Batched, Unit-Sequential)
+        # -------------------------------------------------------
+        num_active = len(t_active)
+        num_units = self.num_groups if self.group_indices else D
+        g_range = self.global_range
+
+        # All active tasks must share the same target list for batching to work.
+        # In Case 1/2 this is guaranteed. In Case 3 (expanded), each task has
+        # a single (potentially different) target, so we must sub-batch by target.
+        # Group active tasks by their target list for batched processing.
+        from collections import OrderedDict
+        target_groups = OrderedDict()
+        for flat_idx, targets in enumerate(t_active):
+            key = tuple(targets)
+            if key not in target_groups:
+                target_groups[key] = []
+            target_groups[key].append(flat_idx)
+
+        # Result buffer: one (m_curr, D) per active task
+        all_results = [None] * num_active
+
+        for targets_tuple, task_indices in target_groups.items():
+            targets_curr = list(targets_tuple)
+            m_curr = len(targets_curr)
+            task_indices_t = torch.tensor(task_indices, device=self.device, dtype=torch.long)
+
+            x_group = x_active[task_indices_t]       # (G, D)
+            d_group = d_active[task_indices_t]        # (G,)
+            G = x_group.shape[0]
+
+            # Process in input-batch chunks
+            for chunk_start in range(0, G, input_batch_size):
+                chunk_end = min(chunk_start + input_batch_size, G)
+                chunk_bs = chunk_end - chunk_start
+
+                x_chunk = x_group[chunk_start:chunk_end]            # (chunk_bs, D)
+                d_chunk = d_group[chunk_start:chunk_end].view(-1, 1) # (chunk_bs, 1)
+
+                # Accumulator in Float64: (chunk_bs, D, m_curr)
+                feature_sens = torch.zeros((chunk_bs, D, m_curr), device=self.device, dtype=torch.float64)
+
+                for w in tqdm(range(n_w), desc=f"    Batch {chunk_start}-{chunk_end} of {G}", leave=False):
+                    delta_range = d_chunk * g_range.unsqueeze(0)     # (chunk_bs, D)
+                    local_lower = torch.max(self.global_lower, x_chunk - delta_range)
+                    local_upper = torch.min(self.global_upper, x_chunk + delta_range)
+
+                    z_batch = local_lower + torch.rand_like(x_chunk) * (local_upper - local_lower)
+                    diff_batch = z_batch - x_chunk                   # (chunk_bs, D)
+
+                    permuted_order = torch.randperm(num_units, device=self.device)
+                    current_x = x_chunk.clone()
+
+                    with torch.no_grad():
+                        out_full = self.qoi_func(current_x)
+                        last_qois = out_full[:, targets_curr].view(chunk_bs, m_curr).to(torch.float64)
+
+                    # Walk through units one at a time
+                    for unit_idx in permuted_order:
+                        if self.group_indices:
+                            idx_mask = self.group_indices[unit_idx]
+                            current_x[:, idx_mask] = z_batch[:, idx_mask]
+                            dx = torch.norm(diff_batch[:, idx_mask], p=2, dim=1).to(torch.float64)  # (chunk_bs,)
+                        else:
+                            current_x[:, unit_idx] = z_batch[:, unit_idx]
+                            dx = torch.abs(diff_batch[:, unit_idx]).to(torch.float64)                # (chunk_bs,)
+
+                        with torch.no_grad():
+                            out_new = self.qoi_func(current_x)
+                            new_qois = out_new[:, targets_curr].view(chunk_bs, m_curr).to(torch.float64)
+
+                        dy = new_qois - last_qois                    # (chunk_bs, m_curr)
+                        dx_view = dx.view(chunk_bs, 1)               # (chunk_bs, 1)
+                        valid_mask_ee = (dx > 1e-12)                 # (chunk_bs,)
+
+                        ee = torch.zeros_like(dy)                    # (chunk_bs, m_curr)
+                        ee[valid_mask_ee] = torch.abs(dy[valid_mask_ee] / dx_view[valid_mask_ee])
+
+                        if self.group_indices:
+                            idx_mask = self.group_indices[unit_idx]
+                            # Broadcast ee to all features in the group
+                            for feat in idx_mask:
+                                feature_sens[:, feat, :] += ee
+                        else:
+                            feature_sens[:, unit_idx, :] += ee
+
+                        last_qois = new_qois
+
+                feature_sens /= n_w  # (chunk_bs, D, m_curr)
+
+                # Store results: transpose to (chunk_bs, m_curr, D) to match compute_sensitivity output
+                chunk_results = feature_sens.permute(0, 2, 1)  # (chunk_bs, m_curr, D)
+                chunk_task_indices = task_indices[chunk_start:chunk_end]
+                for local_i, global_i in enumerate(chunk_task_indices):
+                    all_results[global_i] = chunk_results[local_i].unsqueeze(0)
+
+        # -------------------------------------------------------
+        # RECONSTRUCTION (Filling the holes)
+        # -------------------------------------------------------
+        computed_tensor = torch.cat(all_results, dim=0)  # (num_active, m_curr, D)
+
+        if expanded_mode:
+            final_tensor = torch.zeros((num_total_tasks, 1, D), device=self.device, dtype=torch.float32)
+            final_tensor[valid_indices] = computed_tensor.float()
+            return final_tensor.view(N, M, D)
+        else:
+            final_tensor = torch.zeros((N, M, D), device=self.device, dtype=torch.float32)
+            final_tensor[valid_indices] = computed_tensor.float()
+            return final_tensor
