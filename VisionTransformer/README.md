@@ -19,7 +19,15 @@
 
 ---
 
-### 3. Plotting
+### 3. Perturbation analysis to validate SensX
+
+---
+
+### 4. Adebayo check to validate SensX
+
+---
+
+### 5. Plotting
 *(Details to be added)*
 
 
