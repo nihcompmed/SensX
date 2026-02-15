@@ -10,6 +10,13 @@ pip install pillow requests datasets scikit-learn
 pip install transformers[torch]
 conda install matplotlib
 
+
+For SHAP
+
+conda create -n shap_env python=3.10 -y
+conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
+conda install -c conda-forge shap matplotlib ipython
+
 Vision Transformers:
 
 1. Training
