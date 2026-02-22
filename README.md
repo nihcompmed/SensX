@@ -1,5 +1,5 @@
 # SensX
-[SensX_GitHub_pic.pdf](https://github.com/user-attachments/files/25472878/SensX_GitHub_pic.pdf)
+![SensX_GitHub_pic](https://github.com/user-attachments/assets/7df6a896-5a06-4069-bcde-eae166e65946)
 
 source ~/.bashrc
 
