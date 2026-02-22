@@ -1,5 +1,5 @@
 # SensX
-SensX PyTorch
+[SensX_GitHub_pic.pdf](https://github.com/user-attachments/files/25472878/SensX_GitHub_pic.pdf)
 
 source ~/.bashrc
 
