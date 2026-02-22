@@ -1,4 +1,4 @@
-SensX: Model agnostic local feature attribution with high precision and to scale
+SensX: Precise model agnostic local feature attribution at scale
 =======
 <img src="https://github.com/user-attachments/assets/e28ea335-1976-46e0-b32a-10340907b5ac" alt="SensX Sensitivity Map" width="400">
 
