@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-# SensX
 SensX: Model agnostic local feature attribution with high precision and to scale
 =======
 ![SensX_GitHub_pic](https://github.com/user-attachments/assets/7df6a896-5a06-4069-bcde-eae166e65946)
