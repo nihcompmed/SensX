@@ -1,5 +1,5 @@
 # SensX
-SensX PyTorch
+SensX: Model agnostic local feature attribution with high precision and to scale
 
 source ~/.bashrc
 
