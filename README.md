@@ -1,7 +1,6 @@
 SensX: Model agnostic local feature attribution with high precision and to scale
 =======
-![SensX_GitHub_pic](https://github.com/user-attachments/assets/869e8c33-a0f4-4020-aa29-3656797c36d1)
-
+<img src="https://github.com/user-attachments/assets/869e8c33-a0f4-4020-aa29-3656797c36d1" alt="SensX Sensitivity Map" width="500">
 source ~/.bashrc
 
 conda create -n sensx python=3.11 -y
