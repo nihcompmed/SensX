@@ -2,7 +2,7 @@
 
 <img src="https://github.com/user-attachments/assets/2e57d376-089a-43a5-ba48-b7a48ccd9048" alt="SensX Sensitivity Map" width="400">
 
-SensX identifies input features that a deep learning system is using to make its prediction.
+SensX identifies input features that a deep learning system is using to make its prediction about an input.
 
 SensX can explain any deep learning systems, including composite systems that depend on frozen heterogeneous components, API-only access, and high-dimensional inputs.
 
