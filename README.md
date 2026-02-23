@@ -4,7 +4,7 @@
 
 SensX identifies input features that a deep learning system is using to make its prediction about an input.
 
-SensX can explain any deep learning systems, including composite systems that depend on frozen heterogeneous components, API-only access, and high-dimensional inputs.
+SensX can explain any deep learning system, including composite systems that depend on frozen heterogeneous components, API-only access, and high-dimensional inputs.
 
 SensX requires only the trained system. It does not need model internals, baseline references, or training data. 
 
