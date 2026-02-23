@@ -1,7 +1,6 @@
 SensX: Model agnostic local feature attribution
 =======
-<img src="https://github.com/user-attachments/assets/e28ea335-1976-46e0-b32a-10340907b5ac" alt="SensX Sensitivity Map" width="400">
-
+<img src="https://github.com/user-attachments/assets/2e57d376-089a-43a5-ba48-b7a48ccd9048" alt="SensX Sensitivity Map" width="400">
 
 
 source ~/.bashrc
