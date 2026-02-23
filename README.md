@@ -4,11 +4,13 @@
 
 SensX identifies input features that a deep learning system is using to make its prediction.
 
-SensX requires only the trained model. It does not need model internals, baseline references, or the data the model was trained on. It works for composite deep learning systems that depend on frozen heterogeneous components, API-only access, and high-dimensional inputs.
+SensX can explain composite deep learning systems that depend on frozen heterogeneous components, API-only access, and high-dimensional inputs.
+
+SensX requires only the trained system. It does not need model internals, baseline references, or training data. 
 
 ## Installation
 
-<!-- TODO -->
+Python and requires only PyTorch, along with dependencies required for forward evaluations of the deep learning system.
 
 ## Quick Start
 
@@ -16,7 +18,7 @@ SensX requires only the trained model. It does not need model internals, baselin
 
 ## How It Works
 
-<!-- TODO -->
+
 
 ## Case Studies
 
