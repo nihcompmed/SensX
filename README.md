@@ -38,7 +38,7 @@ cd sensx
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `delta` | Grid | `[0, 1]` | Defines the local perturbation range. |
+| `Delta` | `[0,1]` Grid | `0.02:0.02:1` | Defines the local perturbation range. |
 | `tau_a` | Scalar | — | Significance threshold for feature selection. |
 | `n_s` | Integer | `1000` | Number of primary samples. |
 | `n_w` | Integer | `500` | Number of weighting samples. |
