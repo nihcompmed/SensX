@@ -14,7 +14,7 @@ SensX provides local explanations for any deep learning architecture, including:
 - **API-Only Access:** Systems where only the output is observable.
 - **High-Dimensional Inputs:** Proven applications in transcriptomics and vision.
 
-Unlike SHAP or Integrated Gradients, SensX does not require **model internals**, **baseline references**, or **training data**. It operates strictly on the trained system.
+SensX does not require **model internals**, **baseline references**, or **training data**. It operates strictly on the trained system.
 
 ---
 
