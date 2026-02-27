@@ -1,9 +1,11 @@
 import sys
-import sensx
 import QOI
 import pickle
 import numpy as np
 import torch
+
+sys.path.append('../../sensx/')
+import sensx
 
 sys.path.append('../utils/')
 import compute_accuracy as ca
