@@ -8,7 +8,7 @@ import pandas as pd
 from tqdm import tqdm
 
 # --- Configuration ---
-RESULTS_DIR = 'sensx_analysis/results'
+RESULTS_DIR = 'results'
 OUTPUT_DIR = 'figures'
 MODELS = ['XOR', 'orange_skin', 'nonlinear_additive', 'switch']
 

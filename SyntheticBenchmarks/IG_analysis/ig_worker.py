@@ -124,12 +124,12 @@ abs_ig_values = np.abs(ig_values)
 acc = ca.compute_correct(abs_ig_values, dataset, input_datatypes)
 
 # --- 7. Save Results ---
-os.makedirs('results', exist_ok=True)
+os.makedirs('../results', exist_ok=True)
 
 if baseline_type == "random":
-    save_filename = f'results/topk_acc_ig_{dataset}_ns{n_steps}_{baseline_type}_run{run_number}.npy'
+    save_filename = f'../results/topk_acc_ig_{dataset}_ns{n_steps}_{baseline_type}_run{run_number}.npy'
 else:
-    save_filename = f'results/topk_acc_ig_{dataset}_ns{n_steps}_{baseline_type}.npy'
+    save_filename = f'../results/topk_acc_ig_{dataset}_ns{n_steps}_{baseline_type}.npy'
 
 np.save(save_filename, acc)
 print(f"Saved uint8 accuracy matrix of shape {acc.shape} to {save_filename}")

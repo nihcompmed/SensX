@@ -98,8 +98,8 @@ abs_shap_values = np.abs(shap_values)
 acc = ca.compute_correct(abs_shap_values, dataset, input_datatypes)
 
 # --- 6. Save Results ---
-os.makedirs('results', exist_ok=True)
-save_filename = f'results/topk_acc_shap_{dataset}_ns{nsamples}_run{run_number}.npy'
+os.makedirs('../results', exist_ok=True)
+save_filename = f'../results/topk_acc_shap_{dataset}_ns{nsamples}_run{run_number}.npy'
 np.save(save_filename, acc)
 
 print(f"Saved uint8 accuracy matrix of shape {acc.shape} to {save_filename}")

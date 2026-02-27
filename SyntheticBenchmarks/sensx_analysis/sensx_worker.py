@@ -75,7 +75,7 @@ characteristic_deltas = characteristic_deltas.squeeze()
 
 # Save characteristic deltas
 char_deltas_np = characteristic_deltas.cpu().numpy() if torch.is_tensor(characteristic_deltas) else characteristic_deltas
-deltas_filename = f'results/char_deltas_{model_name}_nw{n_w}_run{run_number}.npy'
+deltas_filename = f'../results/char_deltas_{model_name}_nw{n_w}_run{run_number}.npy'
 np.save(deltas_filename, char_deltas_np)
 print(f"Saved characteristic deltas of shape {char_deltas_np.shape} to {deltas_filename}")
 
@@ -93,8 +93,8 @@ sensx_res = sensx_res[:, 0, :]
 acc = ca.compute_correct(sensx_res, model_name, input_datatypes)
 
 # Serialization to results directory
-os.makedirs('results', exist_ok=True)
-save_filename = f'results/topk_acc_{model_name}_nw{n_w}_run{run_number}.npy'
+os.makedirs('../results', exist_ok=True)
+save_filename = f'../results/topk_acc_{model_name}_nw{n_w}_run{run_number}.npy'
 np.save(save_filename, acc)
 print(f"Saved uint8 accuracy matrix of shape {acc.shape} to {save_filename}")
 
