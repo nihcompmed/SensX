@@ -5,6 +5,8 @@ import shap
 import torch
 import time
 import os
+
+sys.path.append('../utils/')
 import compute_accuracy as ca
 from model import FeedForwardNet
 
@@ -27,11 +29,11 @@ print(f"Background samples: {n_background}")
 print(f"Coalition samples (nsamples): {nsamples}")
 
 # --- 1. Load Data ---
-DATA_FILE = 'synthetic_data.p'
+DATA_FILE = '../data/synthetic_data.p'
 with open(DATA_FILE, 'rb') as f:
     data_dict = pickle.load(f)[dataset]
 
-with open('shortlisted_data.p', 'rb') as f:
+with open('../data/shortlisted_data.p', 'rb') as f:
     shortlisted_idxs = pickle.load(f)[dataset]
 
 X_all = data_dict['X']
@@ -51,7 +53,7 @@ if input_datatypes is not None:
 n_explain = len(input_samples)
 
 # --- 2. Load Model ---
-MODEL_PATH = f"saved_models/best_model_{dataset}.pth"
+MODEL_PATH = f"../models/saved_models/best_model_{dataset}.pth"
 if not os.path.exists(MODEL_PATH):
     print(f"ERROR: Model file not found at {MODEL_PATH}")
     sys.exit(1)

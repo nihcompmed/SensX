@@ -4,6 +4,8 @@ import QOI
 import pickle
 import numpy as np
 import torch
+
+sys.path.append('../utils/')
 import compute_accuracy as ca
 import os
 
