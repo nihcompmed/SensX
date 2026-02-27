@@ -72,6 +72,7 @@ characteristic_deltas = characteristic_deltas.squeeze()
 sensx_res = analyzer.compute_sensitivity(input_samples\
                                 , characteristic_deltas\
                                 , n_w\
+                                , target_output_indices=[0]\
                                 )
 
 ```
