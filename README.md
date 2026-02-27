@@ -1,37 +1,36 @@
-SensX: Model agnostic local feature attribution with high precision and to scale
-=======
-![SensX_GitHub_pic](https://github.com/user-attachments/assets/7df6a896-5a06-4069-bcde-eae166e65946)
+# SensX: Model-Agnostic Local Feature Attribution
 
-source ~/.bashrc
+<img src="https://github.com/user-attachments/assets/2e57d376-089a-43a5-ba48-b7a48ccd9048" alt="SensX Sensitivity Map" width="400">
 
-conda create -n sensx python=3.11 -y
-conda install nomkl -y
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-pip install pillow requests datasets scikit-learn
-pip install transformers[torch]
-conda install matplotlib
+SensX identifies input features that a deep learning system is using to make its prediction about an input.
 
+SensX can explain any deep learning system, including composite systems that depend on frozen heterogeneous components, API-only access, and high-dimensional inputs.
 
-For SHAP
+SensX requires only the trained system. It does not need model internals, baseline references, or training data. 
 
-conda create -n shap_env python=3.10 -y
-conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
-conda install -c conda-forge shap matplotlib ipython
+## Installation
 
-Vision Transformers:
+Python and requires only PyTorch, along with dependencies required for forward evaluations of the deep learning system.
 
-1. Training
+## Quick Start
 
-    1. Run download.py to download pretrained ViT model from HuggingFace.
-    2. Download CelebA dataset (https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). Make sure IMAGES_DIR is the location of the CelebA aligned images.
-    3. Run process_celebA_data.py to generate the label file.
-    3. Run finetune_vit.sh to train two binary classifiers, one to identify Smiling faces and other to identify Eyeglasses.
+<!-- TODO -->
+
+## How It Works
 
 
 
-Run download.py
+## Case Studies
 
+1. Synthetic data sets
+2. Vision transformers
+3. Single-cell transcriptomics
+4. Spatial transcriptomics
 
+## Citation
 
+<!-- TODO -->
 
+## License
 
+<!-- TODO -->
