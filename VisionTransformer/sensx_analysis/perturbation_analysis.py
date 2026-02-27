@@ -21,7 +21,7 @@ BATCH_SIZE = 100
 
 SENSITIVITY_DIR = 'sensitivity'
 STABILITY_DIR = 'stability_profiles'
-DATA_DIR = 'data'
+DATA_DIR = '../model/data'
 OUTPUT_DIR = 'perturbation_results'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 

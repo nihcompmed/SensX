@@ -15,15 +15,15 @@ N_STEPS = int(sys.argv[2]) if len(sys.argv) > 2 else 200
 
 # --- Configuration ---
 MODELS = {
-    'Smiling': 'model/vit-Smiling-model-final/',
-    'Eyeglasses': 'model/vit-Eyeglasses-model-final/',
+    'Smiling': '../model/vit-Smiling-model-final/',
+    'Eyeglasses': '../model/vit-Eyeglasses-model-final/',
 }
 IMAGES = ['000276', '000375']
-IMAGE_DIR = 'data'
+IMAGE_DIR = '../model/data'
 OUTPUT_DIR = f'ig_results_ns{N_STEPS}'
 MEAN_IMAGE_PATH = 'ig_results/celeba_train_mean.npy'
-CELEBA_PICKLE = 'model/CelebA_img_labels.p'
-CELEBA_IMAGES_DIR = 'model/CelebA/img_align_celeba'
+CELEBA_PICKLE = '../model/CelebA_img_labels.p'
+CELEBA_IMAGES_DIR = '../model/CelebA/img_align_celeba'
 N_RANDOM_RUNS = 100
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

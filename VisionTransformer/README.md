@@ -20,10 +20,12 @@
 ---
 
 ### 3. Perturbation analysis to validate SensX
+1. Run `sensx_analysis/perturbation_analysis.py`.
 
 ---
 
 ### 4. Adebayo check to validate SensX
+1. Run `sensx_analysis/adebayo_analysis/create_adebayo_models.py`
 
 ---
 

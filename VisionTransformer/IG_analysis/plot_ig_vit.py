@@ -23,7 +23,7 @@ BASELINE_LABELS = {
     'expected_gradients': 'Expected\nGradients',
 }
 RESULTS_DIR = 'ig_results_ns500'
-IMAGE_DIR = 'data'
+IMAGE_DIR = '../model/data'
 OUTPUT_DIR = 'ig_figures'
 TOP_K_VALUES = [2500, 7500]
 
