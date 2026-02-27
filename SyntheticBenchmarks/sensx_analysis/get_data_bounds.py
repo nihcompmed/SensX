@@ -2,7 +2,7 @@ import pickle
 import numpy as np
 import os
 
-DATA_FILE = 'synthetic_data.p'
+DATA_FILE = '../data/synthetic_data.p'
 OUTPUT_DIR = 'global_bounds'
 
 def main():

@@ -7,7 +7,7 @@ from model import FeedForwardNet
 # Configuration
 DATA_FILE = 'synthetic_data.p'
 OUTPUT_FILE = 'shortlisted_data.p'
-MODEL_DIR = 'saved_models'
+MODEL_DIR = '../models/saved_models'
 CONFIDENCE_THRESHOLD = 0.99
 TARGET_COUNT = 1000
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")

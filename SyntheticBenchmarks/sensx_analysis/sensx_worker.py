@@ -23,12 +23,12 @@ batch_size = 100
 
 device = torch.device("cpu")
 
-fname = 'synthetic_data.p'
+fname = '../data/synthetic_data.p'
 dbfile = open(fname, 'rb')
 data = pickle.load(dbfile)[model_name]
 dbfile.close()
 
-fname = 'shortlisted_data.p'
+fname = '../data/shortlisted_data.p'
 dbfile = open(fname, 'rb')
 shortlisted_idxs = pickle.load(dbfile)[model_name]
 dbfile.close()
@@ -45,7 +45,7 @@ input_dim = input_samples.shape[1]
 global_lower = np.load(f'global_bounds/global_lower_{model_name}.npy')
 global_upper = np.load(f'global_bounds/global_upper_{model_name}.npy')
 
-model_path = f'saved_models/best_model_{model_name}.pth'
+model_path = f'../models/saved_models/best_model_{model_name}.pth'
 
 qoi_func = QOI.qoi_wrapper(model_path\
                             , input_dim\
