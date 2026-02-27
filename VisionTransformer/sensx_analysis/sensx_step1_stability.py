@@ -8,7 +8,7 @@ from QOI import initialize_model_and_qoi
 import sys
 import numpy as np
 
-sys.path.append('../../sensx/') # Uncomment if needed
+sys.path.append('../../sensx/')
 from sensx import SensitivityAnalyzer
 
 
@@ -46,7 +46,7 @@ qoi_func, transform  = initialize_model_and_qoi(
     device
 )
 
-img_path = f'data/{img_name}.jpg'
+img_path = f'../model/../model/data/{img_name}.jpg'
 raw_image = Image.open(img_path).convert("RGB")
 t_img = transform(raw_image) # (C, H, W)
 

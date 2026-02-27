@@ -63,7 +63,7 @@ qoi_func, transform  = initialize_model_and_qoi(
     device
 )
 
-img_path = f'data/{img_name}.jpg'
+img_path = f'../model/data/{img_name}.jpg'
 raw_image = Image.open(img_path).convert("RGB")
 t_img = transform(raw_image) # (C, H, W)
 
