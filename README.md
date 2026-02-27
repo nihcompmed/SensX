@@ -46,11 +46,6 @@ cd sensx
 
 In our case studies, we used `tau_a=0.1` when QOI is probability.
 
----
-
-## How It Works
-
-
 
 ---
 
