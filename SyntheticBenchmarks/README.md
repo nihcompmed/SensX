@@ -24,3 +24,10 @@
 1. Run IG_analysis/generate_bash_script_IG_analysis.py to create bash script for different hyperparameter configurations.
 2. Run IG_analysis/run_ig_experiments.sh to run the IG analysis.
 
+---
+
+### 5. Plot figures
+1. Run plot_characteristic_deltas.py to plot distribution of SensX characteristic perturbation scales.
+1. Run plot_plot_delta_variability.py to variability in SensX characteristic perturbation scales.
+2. Run plot_results.py to plot accuracy results for all methods and hyperparameter configurations.
+
