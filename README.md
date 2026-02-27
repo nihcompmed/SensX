@@ -38,7 +38,7 @@ cd sensx
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `Delta` | `[0,1]` Grid | `0.02:0.02:1` | Defines the delta sweep. |
+| `Deltas` | `[0,1]` Grid | `0.02:0.02:1` | Defines the delta sweep. |
 | `tau_a` | Scalar | — | Significance threshold for feature selection. |
 | `n_s` | Integer | `1000` | Number of samples for stability profile. |
 | `n_w` | Integer | `500` | Number of samples for sensitivity estimation. |
@@ -49,10 +49,9 @@ In our case studies, we used `tau_a=0.1` when QOI is probability.
 ```
 # Initialize SensX
 analyzer = sensx.SensitivityAnalyzer(
-    qoi_func=qoi_func,
+    qoi_func=QOI,
     global_lower=global_lower,
     global_upper=global_upper,
-    device=device
 )
 
 # Inputs to explain
@@ -61,22 +60,19 @@ input_samples = torch.tensor(input_samples)
 # 1. Compute stability profile
 stability_profile =\
         analyzer.compute_stability_profile(input_samples\
-                                        , deltas\
+                                        , Deltas\
                                         , n_s\
-                                        , batch_size\
                                         )
 
 # 2. Compute characteristic perturbation factors
 characteristic_deltas = sensx.find_optimal_delta(stability_profile, tau_a)
 characteristic_deltas = characteristic_deltas.squeeze()
 
-# 2. Compute SensX values
+# 3. Compute SensX values
 sensx_res = analyzer.compute_sensitivity(input_samples\
                                 , characteristic_deltas\
                                 , n_w\
-                                , batch_size\
-                                , target_output_indices=[0]\
-                                , precision='float64')
+                                )
 
 ```
 
