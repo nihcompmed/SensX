@@ -38,7 +38,7 @@ cd sensx
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `Deltas` | `[0,1]` Grid | `0.02:0.02:1` | Defines the delta sweep. |
+| `Deltas` | `(0,1]` Grid | `0.02:0.02:1` | Defines the delta sweep. |
 | `tau_a` | Scalar | — | Significance threshold for feature selection. |
 | `n_s` | Integer | `1000` | Number of samples for stability profile. |
 | `n_w` | Integer | `500` | Number of samples for sensitivity estimation. |
