@@ -4,7 +4,7 @@
   <img src="https://github.com/user-attachments/assets/2e57d376-089a-43a5-ba48-b7a48ccd9048" alt="SensX Sensitivity Map" width="400">
 </p>
 
-SensX identifies the input features a deep learning system utilizes to generate its predictions. It is designed to interpret complex, high-dimensional systems where model internals are inaccessible or baselines are unavailable.
+SensX identifies the input features a deep learning system utilizes to generate its predictions. It is designed to explain complex, high-dimensional systems where model internals are inaccessible or baselines are unavailable.
 
 ## Overview
 
