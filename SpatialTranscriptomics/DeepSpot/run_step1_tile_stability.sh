@@ -1,0 +1,15 @@
+python3 step1_tile_stability_worker.py --start_idx 0 --end_idx 50 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 50 --end_idx 100 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 100 --end_idx 150 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 150 --end_idx 200 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 200 --end_idx 250 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 250 --end_idx 300 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 300 --end_idx 350 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 350 --end_idx 400 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 400 --end_idx 450 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 450 --end_idx 500 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 500 --end_idx 550 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 550 --end_idx 600 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 600 --end_idx 650 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 650 --end_idx 700 --out_dir stability_tile_metadata --time_qoi
+python3 step1_tile_stability_worker.py --start_idx 700 --end_idx 745 --out_dir stability_tile_metadata --time_qoi

@@ -1,0 +1,10 @@
+python3 step3_perturbation_test_worker.py --task_file tile_sensitivity_tasks.p --task_start 0 --task_end 100 --out_dir perturbation_test_results
+python3 step3_perturbation_test_worker.py --task_file tile_sensitivity_tasks.p --task_start 100 --task_end 200 --out_dir perturbation_test_results
+python3 step3_perturbation_test_worker.py --task_file tile_sensitivity_tasks.p --task_start 200 --task_end 300 --out_dir perturbation_test_results
+python3 step3_perturbation_test_worker.py --task_file tile_sensitivity_tasks.p --task_start 300 --task_end 400 --out_dir perturbation_test_results
+python3 step3_perturbation_test_worker.py --task_file tile_sensitivity_tasks.p --task_start 400 --task_end 500 --out_dir perturbation_test_results
+python3 step3_perturbation_test_worker.py --task_file tile_sensitivity_tasks.p --task_start 500 --task_end 600 --out_dir perturbation_test_results
+python3 step3_perturbation_test_worker.py --task_file tile_sensitivity_tasks.p --task_start 600 --task_end 700 --out_dir perturbation_test_results
+python3 step3_perturbation_test_worker.py --task_file tile_sensitivity_tasks.p --task_start 700 --task_end 800 --out_dir perturbation_test_results
+python3 step3_perturbation_test_worker.py --task_file tile_sensitivity_tasks.p --task_start 800 --task_end 900 --out_dir perturbation_test_results
+python3 step3_perturbation_test_worker.py --task_file tile_sensitivity_tasks.p --task_start 900 --task_end 975 --out_dir perturbation_test_results
