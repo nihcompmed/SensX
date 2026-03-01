@@ -14,8 +14,7 @@ img_name = '000276'
 
 # Model to explain
 # Smiling/Eyeglasses
-#model_name = 'Smiling'
-model_name = 'Eyeglasses'
+model_name = 'Smiling'
 
 tau_a = 0.1
 
@@ -47,22 +46,17 @@ lo = q1[:, sample_idx]
 hi = q99[:, sample_idx]
 label_suffix = ""
 
-fig, ax = plt.subplots(figsize=(6, 4))
-ax.fill_between(deltas, lo, hi, alpha=0.25, color="steelblue", label="prediction envelope")
+fig, ax = plt.subplots(figsize=(12, 8))
+ax.fill_between(deltas, lo, hi, alpha=0.25, color="steelblue", label="q1–q99")
 ax.plot(deltas, med, color="darkblue", linewidth=1.5, label="median")
-ax.set_xlabel("perturbation factor ($\delta$)", fontsize=16)
-ax.set_ylabel("QOI=P(Eyeglasses)", fontsize=16)
-ax.legend(fontsize=14, loc='best')
+ax.set_xlabel("delta")
+ax.set_ylabel("QoI")
+ax.legend()
 
-plt.ylim([-0.05,1.05])
+title = f"Stability Profile — sample {sample_idx}{label_suffix}"
+ax.set_title(title)
 
-#title = f"Stability Profile — sample {sample_idx}{label_suffix}"
-#ax.set_title(title)
-
-ax.axvline(characteristic_deltas.squeeze(), ls='--', lw=2, color='red')
-
-ax.tick_params(axis='x', labelsize=16)
-ax.tick_params(axis='y', labelsize=16)
+ax.axvline(characteristic_deltas.squeeze(), ls='--')
 
 plt.tight_layout()
 
