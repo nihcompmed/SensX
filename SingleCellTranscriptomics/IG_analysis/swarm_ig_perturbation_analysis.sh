@@ -1,0 +1,6 @@
+python3 perturbation_analysis.py zero
+python3 perturbation_analysis.py mean_train
+python3 perturbation_analysis.py mean_shortlist
+python3 perturbation_analysis_delta1.py zero
+python3 perturbation_analysis_delta1.py mean_train
+python3 perturbation_analysis_delta1.py mean_shortlist

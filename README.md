@@ -90,13 +90,3 @@ sensx_res = analyzer.compute_sensitivity(input_samples\
 
 ---
 
-## Citation
-
-<!-- TODO: Add citation -->
-
----
-
-## License
-
-<!-- TODO: Add license -->
-

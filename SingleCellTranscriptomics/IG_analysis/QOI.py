@@ -3,7 +3,7 @@ import functools
 import torch
 
 sys.path.append('../model')
-import model as ml
+import model_library as ml
 
 def qoi_wrapper(model_path, num_genes, device):
 
@@ -19,6 +19,7 @@ def qoi_wrapper(model_path, num_genes, device):
     qoi = functools.partial(ml.probability_qoi, model=model)
 
     return qoi
+
 
 
 
