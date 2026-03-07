@@ -36,12 +36,14 @@ cd sensx
 1. Create a wrapper `QOI.py` that accepts a batch of inputs and returns the model response.
 2. Configure hyperparameters:
 
-| Parameter | Type | Default | Description |
+| Parameter | Type | Recommended | Description |
 |-----------|------|---------|-------------|
+| `global_lower` | `Scalar/Vector` | - | Lower bounds on input features/ |
+| `global_upper` | `Scalar/Vector` | - | Upper bounds on input features/ |
 | `Deltas` | `(0,1]` Grid | `0.02:0.02:1` | Defines the delta sweep. |
 | `tau_a` | Scalar | — | Significance threshold. |
 | `n_s` | Integer | `1000` | Number of samples for stability profile. |
-| `n_w` | Integer | `500` | Number of samples for sensitivity estimation. |
+| `n_w` | Integer | `200+` | Number of samples for sensitivity estimation. |
 
 
 In our case studies, we used `tau_a=0.1` when QOI is probability.
